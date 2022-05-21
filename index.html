@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800&display=swap');
+        body {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .box {
+            height: 50px;
+            width: 50px;
+            background-color: red;
+        }
+        .box {
+            display: inline-block;
+            color: white;
+            text-align: center;
+            padding-top: 1vh;
+            font-weight: 700;
+        }
+
+        #container > * {
+            margin: 10px;
+
+        }
+
+    </style>
+
+    <script>
+        function pressButton(id) {
+            console.log(id)
+        }
+
+        function generate() {
+            let x = $('#x').val()
+            let y = $('#y').val()
+            
+            let curid = 0
+
+            for(let i = 0; i < x; i++) {
+                for(let j = 0; j < y; j++) {
+                    $('#container').append('<div class="box" id="'+ curid +'" onclick="pressButton(' + curid + ')">' + ((Math.random() < 0.5) == true ? 1 : 0) + '</div>')
+                    curid++
+                }
+                $('#container').append('<br>')
+            }
+            
+
+
+        }
+
+    </script>
+</head>
+
+<body>
+
+    <input type="number" id="x"><br>
+    <input type="number" id="y"><br>
+    <input type="submit" value="Generate" onclick="generate()"><br>
+
+    <div id="container">
+        
+    </div>
+
+    
+</body>
+
+</html>
