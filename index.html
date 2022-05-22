@@ -11,58 +11,96 @@
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800&display=swap');
         body {
             font-family: 'Montserrat', sans-serif;
+            background-color: antiquewhite;
         }
 
         .box {
             height: 50px;
             width: 50px;
-            background-color: red;
-        }
-        .box {
+            background-color: skyblue;
             display: inline-block;
             color: white;
             text-align: center;
             padding-top: 1vh;
             font-weight: 700;
+            border: 5px solid black;
+            border-radius: 30%;
         }
-
+        .parity{
+            height: 50px;
+            width: 50px;
+            background-color: crimson;
+            display: inline-block;
+            color: white;
+            text-align: center;
+            padding-top: 1vh;
+            font-weight: 700;
+            border: 5px solid black;
+            border-radius: 30%;
+        }
         #container > * {
-            margin: 10px;
+            margin: 1px;
 
         }
 
     </style>
 
     <script>
+        let curLvl = 1
+        
+
         function pressButton(id) {
             console.log(id)
         }
 
         function generate() {
-            let x = $('#x').val()
-            let y = $('#y').val()
+            let x // = $('#x').val()
+            let y // = $('#y').val()
+            
+            switch (curLvl) {
+                case 1: x=3, y=3; break;
+                case 2: x=3, y=4; break;
+                case 3: x=4, y=4; break;
+                case 4: x=4, y=5; break;
+                case 5: x=5, y=5; break;
+            }
             
             let curid = 0
 
             for(let i = 0; i < x; i++) {
                 for(let j = 0; j < y; j++) {
-                    $('#container').append('<div class="box" id="'+ curid +'" onclick="pressButton(' + curid + ')">' + ((Math.random() < 0.5) == true ? 1 : 0) + '</div>')
-                    curid++
+                    $('#container').append('<div class="' + (isPowerOfTwo(curid) == true ? `parity` : `box`) +'" id="'+ curid +'" onclick="pressButton(' + curid + ')">' + ((Math.random() < 0.5) == true ? 1 : 0) + '</div>')
+                    curid++ 
                 }
                 $('#container').append('<br>')
             }
-            
 
-
+            //Finding parity bits positions
+            function isPowerOfTwo(n)
+            {
+                if (n == 0)
+                    return false;
+        
+                return parseInt( (Math.ceil((Math.log(n) / Math.log(2))))) == parseInt( (Math.floor(((Math.log(n) / Math.log(2))))));
+            }
         }
+
+        function changeLevel(lvl) {
+            // $('lvl').text('Level ' + lvl)
+            $('lvl').val('Level ' + lvl);
+        }
+        
+        changeLevel(3)
 
     </script>
 </head>
 
 <body>
-
-    <input type="number" id="x"><br>
-    <input type="number" id="y"><br>
+    <div id="lvl">
+        <h1>Level 1</h1>
+    </div>
+    <!-- <input type="number" id="x"><br>
+    <input type="number" id="y"><br> -->
     <input type="submit" value="Generate" onclick="generate()"><br>
 
     <div id="container">
